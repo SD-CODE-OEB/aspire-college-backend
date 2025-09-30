@@ -1,0 +1,26 @@
+[
+  {
+    "name": "ABC Engineering College",
+    "location": "Hyderabad",
+    "course": "Computer Science",
+    "fee": 120000
+  },
+  {
+    "name": "XYZ Institute of Technology",
+    "location": "Bangalore",
+    "course": "Electronics",
+    "fee": 100000
+  },
+  {
+    "name": "Sunrise Business School",
+    "location": "Chennai",
+    "course": "MBA",
+    "fee": 150000
+  },
+  {
+    "name": "Greenfield Medical College",
+    "location": "Hyderabad",
+    "course": "MBBS",
+    "fee": 250000
+  }
+]

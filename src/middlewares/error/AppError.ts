@@ -37,3 +37,12 @@ export class DatabaseError extends AppError {
     super(message, 500);
   }
 }
+
+/**
+ * Authorization Error - for permission issues
+ */
+export class AuthorizationError extends AppError {
+  constructor(message: string = "Not authorized") {
+    super(message, 403);
+  }
+}

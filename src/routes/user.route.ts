@@ -1,14 +1,15 @@
 import express from "express";
 import {
-  deleteSingleUserByEmail,
+  deleteUserByEmail,
+  deleteUserByUserId,
   getAllUsers,
-  InsertSingleUser,
 } from "../controllers/user.controller";
+import verifyJWT from "../middlewares/auth";
 
 const userRouter = express.Router();
 
-userRouter.get("/all", getAllUsers);
-userRouter.post("/add", InsertSingleUser);
-userRouter.delete("/delete", deleteSingleUserByEmail);
+userRouter.get("/all", verifyJWT, getAllUsers);
+userRouter.delete("/delete", deleteUserByEmail);
+userRouter.delete("/delete/:uid", deleteUserByUserId);
 
 export default userRouter;
