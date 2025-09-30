@@ -13,7 +13,7 @@ import express, { Application, Request, Response } from "express";
 import { errorHandler, notFoundHandler } from "./middlewares/error";
 
 export const app: Application = express();
-const port: number = 5000;
+const port: number = parseInt(process.env.PORT || "5000", 10);
 
 //middlewares
 app.use(express.json());
@@ -45,11 +45,11 @@ app.use(notFoundHandler);
 //error handler at the end of all routes
 app.use(errorHandler);
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   if (!db) {
     console.error("Database connection failed");
     return;
   } else {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://0.0.0.0:${port}`);
   }
 });

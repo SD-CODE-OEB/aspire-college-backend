@@ -67,3 +67,62 @@ npx drizzle-kit push
 # Start development server
 npm run dev
 ```
+
+## Deployment on Render
+
+This repository is configured for easy deployment on [Render](https://render.com).
+
+### Prerequisites
+
+1. A [Render account](https://render.com)
+2. A PostgreSQL database (you can create one on Render)
+
+### Deployment Steps
+
+#### Option 1: Using render.yaml (Recommended)
+
+1. Fork or push this repository to GitHub
+2. Go to your Render dashboard
+3. Click "New" → "Blueprint"
+4. Connect your GitHub repository
+5. Render will automatically detect the `render.yaml` file
+6. Set the following environment variables:
+   - `DATABASE_URL`: Your PostgreSQL connection string
+   - `JWT_SECRET`: A secure random string for JWT signing
+
+#### Option 2: Manual Setup
+
+1. Go to your Render dashboard
+2. Click "New" → "Web Service"
+3. Connect your GitHub repository
+4. Configure the service:
+   - **Name**: aspire-college-backend (or your preferred name)
+   - **Environment**: Node
+   - **Build Command**: `yarn install && yarn build`
+   - **Start Command**: `yarn start`
+5. Add environment variables:
+   - `DATABASE_URL`: Your PostgreSQL connection string
+   - `JWT_SECRET`: A secure random string
+   - `NODE_ENV`: production
+
+### Database Setup on Render
+
+1. Create a PostgreSQL database on Render:
+   - Go to Dashboard → "New" → "PostgreSQL"
+   - Choose a name and region
+   - Select the free tier or a paid plan
+2. Copy the "Internal Database URL" 
+3. Use it as the `DATABASE_URL` environment variable in your web service
+
+### Post-Deployment
+
+After deployment, you can:
+- Access the health check endpoint: `https://your-app.onrender.com/health`
+- Run database migrations if needed (set up as a one-time job or include in build command)
+
+### Important Notes
+
+- The server automatically uses the `PORT` environment variable provided by Render
+- Ensure your PostgreSQL database is accessible from your Render service
+- For production, use strong values for `JWT_SECRET`
+- The app uses Neon serverless driver which works well with serverless platforms
