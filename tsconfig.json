@@ -9,7 +9,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    // "types": ["node"], // Important!
+    "types": ["node"], // Important!
     "typeRoots": ["node_modules/@types"]
   },
   "include": ["src/**/*.ts"],
