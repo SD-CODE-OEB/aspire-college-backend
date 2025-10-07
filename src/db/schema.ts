@@ -44,11 +44,11 @@ export const ReviewsTable = pgTable(
     rating: integer("rating").notNull(),
     comment: varchar("comment", { length: 1000 }).notNull(),
     collegeId: integer("college_id")
-      .references(() => CollegeTable.collegeId)
+      .references(() => CollegeTable.collegeId, { onDelete: "cascade" })
       .notNull(),
     userId: integer("user_id")
       .notNull()
-      .references(() => UserTable.userId),
+      .references(() => UserTable.userId, { onDelete: "cascade" }),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [unique().on(table.collegeId, table.userId)]

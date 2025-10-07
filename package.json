@@ -9,7 +9,10 @@
     "dev": "nodemon --exec ts-node src/server.ts",
     "prestart": "yarn run build",
     "db-migrate": "drizzle-kit generate && drizzle-kit push",
-    "db:setup": "yarn run db-migrate && tsx src/db/seed.ts"
+    "db:seed": "tsx src/db/seed.ts",
+    "db:setup": "yarn run db-migrate && yarn run db:seed",
+    "db:seed:force": "tsx src/db/seed.ts --force",
+    "db:reset": "yarn run db-migrate && yarn run db:seed:force"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.9",
