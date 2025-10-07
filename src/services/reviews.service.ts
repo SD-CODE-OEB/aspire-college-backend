@@ -1,13 +1,17 @@
-import { eq } from "drizzle-orm";
 import { db } from "../db";
-import { CollegeTable, ReviewsTable, UserTable } from "../db/schema";
+import { eq } from "drizzle-orm";
 import { AppError, NotFoundError } from "../middlewares/error";
+import { CollegeTable, ReviewsTable, UserTable } from "../db/schema";
 
-export const getAllReviews = async () => {
+export const fetchAllReviews = async () => {
   const reviews = await db
     .select({
       reviewId: ReviewsTable.reviewId,
-      userId: ReviewsTable.userId,
+      user: {
+        userId: UserTable.userId,
+        username: UserTable.username,
+        email: UserTable.email,
+      },
       rating: ReviewsTable.rating,
       comment: ReviewsTable.comment,
       collegeName: CollegeTable.collegeName,
@@ -15,7 +19,15 @@ export const getAllReviews = async () => {
     })
     .from(ReviewsTable)
     .innerJoin(CollegeTable, eq(ReviewsTable.collegeId, CollegeTable.collegeId))
+    .innerJoin(UserTable, eq(ReviewsTable.userId, UserTable.userId))
     .then((rows) => rows);
+
+  if (reviews.length === 0) {
+    throw new NotFoundError("No reviews found");
+  }
+  if (reviews instanceof Error) {
+    throw new AppError(reviews.message, 500);
+  }
   return reviews;
 };
 
