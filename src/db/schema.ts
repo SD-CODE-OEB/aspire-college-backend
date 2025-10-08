@@ -27,15 +27,19 @@ export const CollegeTable = pgTable("colleges", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const CourseTable = pgTable("courses", {
-  courseId: serial("course_id").primaryKey(),
-  courseName: varchar("course_name", { length: 255 }).notNull(),
-  fee: decimal("fee", { precision: 10, scale: 2 }).notNull(),
-  collegeId: integer("college_id")
-    .references(() => CollegeTable.collegeId)
-    .notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const CourseTable = pgTable(
+  "courses",
+  {
+    courseId: serial("course_id").primaryKey(),
+    courseName: varchar("course_name", { length: 255 }).notNull(),
+    fee: decimal("fee", { precision: 10, scale: 2 }).notNull(),
+    collegeId: integer("college_id")
+      .references(() => CollegeTable.collegeId)
+      .notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [unique().on(table.courseName, table.collegeId)]
+);
 
 export const ReviewsTable = pgTable(
   "reviews",

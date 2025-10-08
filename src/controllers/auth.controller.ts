@@ -17,6 +17,7 @@ import { AppError, AuthorizationError } from "../middlewares/error/AppError";
 
 const Register = asyncHandler(async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
+  console.log("Registration request received:", { username, email, password });
   const user = await createUser(username, email, password);
   // const { accessToken, refreshToken } = await generateTokens(user.userId);
   // setTokenCookies(res, accessToken, refreshToken);
@@ -30,7 +31,7 @@ const Register = asyncHandler(async (req: Request, res: Response) => {
 
 const Login = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
-
+  console.log("Login request received:", { email, password });
   const user = await loginUser(email, password);
 
   const { accessToken, refreshToken } = await generateTokens(user.userId);
